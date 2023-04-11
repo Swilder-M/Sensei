@@ -12,12 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - uses: swift-actions/setup-swift@v1
-        with:
-          swift-version: "5.8.0"
+      # - uses: swift-actions/setup-swift@v1
+      #   with:
+      #     swift-version: "5.8.0"
 
-      - name: Get swift version
-        run: swift --version
+      # - name: Get swift version
+      #   run: swift --version
 
       - name: Install Tuist
         run: |
@@ -26,6 +26,7 @@ jobs:
       - name: Build and package Sensei
         run: |
           make sensei bundle-id-prefix=io.tuist version=0.3.0 build=10
+          ls -la
           cp -r ./out/Sensei.app ./Sensei.app
           zip -r Sensei-macOS.zip ./Sensei.app
 
