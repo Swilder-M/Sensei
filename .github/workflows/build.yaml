@@ -1,0 +1,29 @@
+name: Build for macOS
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Tuist
+        run: |
+          brew install tuist
+
+      - name: Build and package Sensei
+        run: |
+          make sensei bundle-id-prefix=io.tuist version=0.3.0 build=10
+          cp -r ./out/Sensei.app ./Sensei.app
+          zip -r Sensei-macOS.zip ./Sensei.app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Sensei-macOS
+          path: Sensei-macOS.zip
