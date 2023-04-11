@@ -14,7 +14,7 @@ jobs:
 
       - name: Install Tuist
         run: |
-          brew install tuist
+          curl -Ls https://install.tuist.io | bash
 
       - name: Build and package Sensei
         run: |
